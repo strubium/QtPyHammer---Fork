@@ -289,21 +289,15 @@ class MainWindow(QtWidgets.QMainWindow):
         # TOOLBARS
         key_tools = QtWidgets.QToolBar("Tools")
         key_tools.setMovable(False)
-        # button_1 = QtWidgets.QToolButton() # need icons (.png)
-        # button_1.setToolTip("Toggle 2D grid visibility")
-        # key_tools.addWidget(button_1)
-        # button_2 = QtWidgets.QToolButton()
-        # button_2.setToolTip("Toggle 3D grid visibility")
-        # key_tools.addWidget(button_2)
-        # button_3 = QtWidgets.QToolButton()
-        # button_3.setToolTip("Grid scale -  [")
-        # key_tools.addWidget(button_3)
-        # button_3 = QtWidgets.QToolButton()
-        # button_3.setDefaultAction(...) # shortcut "]"
-        # key_tools.addWidget(button_3)
-        # key_tools.addSeparator()
+        button_1 = QtWidgets.QToolButton() # need icons (.png)
+        button_1.setToolTip("Toggle 2D grid visibility")
+        key_tools.addWidget(button_1)
+        button_2 = QtWidgets.QToolButton()
+        button_2.setToolTip("Toggle 3D grid visibility")
+        key_tools.addWidget(button_2)
+        key_tools.addSeparator()
 
-        # self.addToolBar(QtCore.Qt.TopToolBarArea, key_tools)
+        self.addToolBar(QtCore.Qt.TopToolBarArea, key_tools)
         # undo redo | carve | group ungroup ignore | hide unhide alt-hide |
         # cut copy paste | cordon | TL <TL> | DD 3D DW DA |
         # compile helpers 2D_models fade CM prop_detail NO_DRAW
