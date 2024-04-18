@@ -12,7 +12,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
-        self.setWindowTitle("QtPyHammer")
+        self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
         self.tabs = QtWidgets.QTabWidget()
@@ -288,8 +288,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setMenuBar(self.main_menu)
 
         # TOOLBARS
-        # key_tools = QtWidgets.QToolBar("Tools 1")
-        # key_tools.setMovable(False)
+        key_tools = QtWidgets.QToolBar("Tools")
+        key_tools.setMovable(False)
         # button_1 = QtWidgets.QToolButton() # need icons (.png)
         # button_1.setToolTip("Toggle 2D grid visibility")
         # key_tools.addWidget(button_1)
