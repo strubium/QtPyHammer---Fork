@@ -259,7 +259,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["Help/About QPH"].triggered.connect(lambda: open_url(QtCore.QUrl(
                                 "https://github.com/snake-biscuits/QtPyHammer/wiki")))
         self.actions["Help/About Qt"] = help_menu.addAction("About Qt")
-        self.actions["Help/About Qt"].setEnabled(False)
+        self.actions["Help/About Qt"].triggered.connect(lambda: open_url(QtCore.QUrl(
+                            "https://github.com/spyder-ide/qtpy")))
         # self.actions["Help/About Qt"].triggered.connect(ui. #QDialog
         self.actions["Help/License"] = help_menu.addAction("License")
         self.actions["Help/License"].setEnabled(False)
@@ -271,8 +272,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["Help/VDC"] = help_menu.addAction("Valve Developer Community")
         self.actions["Help/VDC"].triggered.connect(lambda: open_url(QtCore.QUrl(
                             "https://developer.valvesoftware.com/wiki/Main_Page")))
-        self.actions["Help/TF2Maps"] = help_menu.addAction("TF2Maps.net")
-        self.actions["Help/TF2Maps"].triggered.connect(lambda: open_url(QtCore.QUrl("https://tf2maps.net")))
 
         # attach all actions to hotkeys
         app = QtWidgets.QApplication.instance()
