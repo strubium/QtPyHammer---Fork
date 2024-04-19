@@ -331,9 +331,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         edit_tools = QtGui.QToolBar("Edit Tools")
         edit_tools.setMovable(True)
-        edit_button_1 = QtWidgets.QToolButton() # need icons (.png)
-        edit_button_1.setToolTip("Selection Tool")
-        edit_tools.addWidget(edit_button_1)
         self.addToolBar(QtCore.Qt.LeftToolBarArea, toolbarBox)
 
     def open(self, filename):  # allows loading via drag & drop
