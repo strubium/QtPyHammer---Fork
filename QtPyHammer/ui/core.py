@@ -2,6 +2,7 @@
 import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIcon
 
 from .. import ops
 from ..ui import entity
@@ -291,9 +292,11 @@ class MainWindow(QtWidgets.QMainWindow):
         key_tools.setMovable(False)
         button_1 = QtWidgets.QToolButton() # need icons (.png)
         button_1.setToolTip("Toggle 2D grid visibility")
+        button_1.setIcon(QIcon("icons/2dHammerIcon"))
         key_tools.addWidget(button_1)
         button_2 = QtWidgets.QToolButton()
         button_2.setToolTip("Toggle 3D grid visibility")
+        button_2.setIcon(QIcon("icons/3dHammerIcon"))
         key_tools.addWidget(button_2)
         key_tools.addSeparator()
 
