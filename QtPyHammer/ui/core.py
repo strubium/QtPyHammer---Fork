@@ -4,6 +4,7 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 
+
 from .. import ops
 from ..ui import entity
 from ..ui import workspace
@@ -11,6 +12,8 @@ from ..ui import workspace
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
+
+
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
         self.setWindowTitle("QtPyHammer - Fork")
@@ -298,6 +301,26 @@ class MainWindow(QtWidgets.QMainWindow):
         button_2.setToolTip("Toggle 3D grid visibility")
         button_2.setIcon(QIcon("icons/3dHammerIcon"))
         key_tools.addWidget(button_2)
+        button_3 = QtWidgets.QToolButton()
+        button_3.setToolTip("Smaller Grid")
+        key_tools.addWidget(button_3)
+        button_4 = QtWidgets.QToolButton()
+        button_4.setToolTip("Larger Grid")
+        key_tools.addWidget(button_4)
+        key_tools.addSeparator()
+        button_5= QtWidgets.QToolButton()
+        button_5.setToolTip("Load Window State")
+        key_tools.addWidget(button_5)
+        button_6= QtWidgets.QToolButton()
+        button_6.setToolTip("Save Window State")
+        key_tools.addWidget(button_6)
+        key_tools.addSeparator()
+        button_7= QtWidgets.QToolButton()
+        button_7.setToolTip("Undo")
+        key_tools.addWidget(button_7)
+        button_8= QtWidgets.QToolButton()
+        button_8.setToolTip("Redo")
+        key_tools.addWidget(button_8)
         key_tools.addSeparator()
 
         self.addToolBar(QtCore.Qt.TopToolBarArea, key_tools)
