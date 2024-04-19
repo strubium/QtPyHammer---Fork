@@ -306,6 +306,7 @@ class MainWindow(QtWidgets.QMainWindow):
         key_tools.addWidget(button_3)
         button_4 = QtWidgets.QToolButton()
         button_4.setToolTip("Larger Grid")
+        button_4.setIcon(QIcon("icons/LargeGridIcon"))
         key_tools.addWidget(button_4)
         key_tools.addSeparator()
         button_5= QtWidgets.QToolButton()
