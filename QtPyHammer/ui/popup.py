@@ -1,15 +1,20 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class browser(QtWidgets.QDialog):
-    def __init__(self, parent):
+    def __init__(self, parent, text):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
         self.setWindowTitle("Popup")
-        # self.setWindowIcon(parent.entity_icon)
-        self.setGeometry(780, 220, 360, 640)
-        app = QtWidgets.QApplication.instance()
-        self.base_widget = QtWidgets.QTabWidget()
+
+        # Add QLabel to display text
+        self.text_label = QtWidgets.QLabel(text)
+        self.text_label.setAlignment(QtCore.Qt.AlignCenter)  # Center align text
+        self.text_label.setWordWrap(True)  # Enable word wrap
+        self.text_label.setMargin(10)  # Add margin to the label
+        self.text_label.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+
+        # Layout setup
         base_layout = QtWidgets.QVBoxLayout()
-        base_layout.addWidget(self.base_widget)
+        base_layout.addWidget(self.text_label)
         bottom_row = QtWidgets.QHBoxLayout()
         bottom_row.addStretch(1)
         ok_button = QtWidgets.QPushButton("Ok")
@@ -18,3 +23,6 @@ class browser(QtWidgets.QDialog):
         bottom_row.addWidget(ok_button)
         base_layout.addLayout(bottom_row)
         self.setLayout(base_layout)
+
+        # Resize the dialog to fit the text
+        self.adjustSize()

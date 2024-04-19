@@ -47,7 +47,7 @@ class MainWindow(QtWidgets.QMainWindow):
         def save_file_as(): ops.save_file_as(self, self.map_browser)
         self.actions["File/Save As"].triggered.connect(save_file_as)
         self.actions["File/Error Test"] = file_menu.addAction("Example Popup (for testing)")
-        error_popup = popup.browser(parent=self)
+        error_popup = popup.browser(parent=self,text="woow")
         self.actions["File/Error Test"].triggered.connect(error_popup.show)
         self.actions["File/Texture Test"] = file_menu.addAction("Texture Menu (for testing)")
         texture_popup = texture_browser.TextureBrowser(parent=self)
