@@ -329,6 +329,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # cut copy paste | cordon | TL <TL> | DD 3D DW DA |
         # compile helpers 2D_models fade CM prop_detail NO_DRAW
 
+        edit_tools = QtGui.QToolBar("Edit Tools")
+        edit_tools.setMovable(True)
+        self.addToolBar(QtCore.Qt.LeftToolBarArea, toolbarBox)
+
     def open(self, filename):  # allows loading via drag & drop
         raw_filename, extension = os.path.splitext(filename)
         short_filename = os.path.basename(filename)
