@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 
 
 from .. import ops
-from ..ui import entity
+from ..ui import entity, popup, texture_browser
 from ..ui import workspace
 
 
@@ -46,6 +46,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Save As"] = file_menu.addAction("Save &As")
         def save_file_as(): ops.save_file_as(self, self.map_browser)
         self.actions["File/Save As"].triggered.connect(save_file_as)
+        self.actions["File/Error Test"] = file_menu.addAction("Example Popup (for testing)")
+        error_popup = popup.browser(parent=self)
+        self.actions["File/Error Test"].triggered.connect(error_popup.show)
+        self.actions["File/Texture Test"] = file_menu.addAction("Texture Menu (for testing)")
+        texture_popup = texture_browser.TextureBrowser(parent=self)
+        self.actions["File/Texture Test"].triggered.connect(texture_popup.show)
         file_menu.addSeparator()
         # self.import_menu = file_menu.addMenu("Import")
         # self.import_menu.addAction(".obj")
@@ -117,8 +123,8 @@ class MainWindow(QtWidgets.QMainWindow):
             ent_browser = entity.browser(parent=self)
             self.actions["Tools/Brush to Entity"].triggered.connect(ent_browser.show)
         except Exception as exc:
-            # log the full exception for debug
-            print("Failed to load .fgds!")  # use the builtin logger module
+            error_popup = popup.browser(parent=self)
+            self.actions["Tools/Brush to Entity"].triggered.connect(error_popup.show)
             self.actions["Tools/Brush to Entity"].setEnabled(False)
             raise exc
         self.actions["Tools/Entity to Brush"] = tools_menu.addAction("&Move to World")
@@ -267,7 +273,8 @@ class MainWindow(QtWidgets.QMainWindow):
                             "https://github.com/spyder-ide/qtpy")))
         # self.actions["Help/About Qt"].triggered.connect(ui. #QDialog
         self.actions["Help/License"] = help_menu.addAction("License")
-        self.actions["Help/License"].setEnabled(False)
+        self.actions["Help/License"].triggered.connect(lambda: open_url(QtCore.QUrl(
+                            "https://github.com/strubium/QtPyHammer/blob/master/LICENSE")))
         # self.actions["Help/License"].triggered.connect(ui. #QDialog
         self.actions["Help/Contributors"] = help_menu.addAction("Contributors")
         self.actions["Help/Contributors"].setEnabled(False)

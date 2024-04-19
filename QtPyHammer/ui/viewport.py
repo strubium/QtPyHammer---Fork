@@ -72,7 +72,7 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
         app = QtWidgets.QApplication.instance()
         shader_folder = os.path.join(app.folder, f"shaders/{self.shader_version}/")
         self.render_manager.initialise(shader_folder)
-        self.set_view_mode("flat")  # sets shaders & GL state
+        self.set_view_mode("textured")  # sets shaders & GL state
         self.timer.start()
 
     # calling the slot by it's name creates a QVariant Error
