@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 
 
 from .. import ops
-from ..ui import entity, popup, texture_browser
+from ..ui import entity, popup, texture_browser, compile
 from ..ui import workspace
 
 
@@ -63,8 +63,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["File/Options"].triggered.connect(ui.settings)
         file_menu.addSeparator()
         self.actions["File/Compile"] = file_menu.addAction("Compile")
-        self.actions["File/Compile"].setEnabled(False)
-        # self.actions["File/Compile"].triggered.connect(ui.compile)
+        compile_menu = compile.browser(parent=self)
+        self.actions["File/Compile"].triggered.connect(compile_menu.show)
         file_menu.addSeparator()
         self.actions["File/Exit"] = file_menu.addAction("Exit")
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
@@ -263,7 +263,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["Help/Offline"].triggered.connect(ui.
         help_menu.addSeparator()
         self.actions["Help/About QPH"] = help_menu.addAction("About QtPyHammer")
-        about_popup = popup.browser(parent=self, popuptext="About", msgtext="A Python alternative to Valve Hammer Editor 4.x, forked from QtPyHammer\nVersion: v0.0.5forked")
+        about_popup = popup.browser(parent=self, popuptext="About", msgtext="A Python alternative to Valve Hammer Editor 4.x, forked from QtPyHammer\n\nVersion: v0.0.5forked")
         self.actions["Help/About QPH"].triggered.connect(about_popup.show)
         self.actions["Help/About Qt"] = help_menu.addAction("About Qt")
         self.actions["Help/About Qt"].triggered.connect(lambda: open_url(QtCore.QUrl(

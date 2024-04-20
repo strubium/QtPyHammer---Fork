@@ -3,7 +3,7 @@ import enum
 
 from PyQt5 import QtWidgets
 
-from . import viewport
+from . import viewport, popup
 from ..ops.vmf import VmfInterface
 
 
@@ -55,7 +55,8 @@ class VmfTab(QtWidgets.QWidget):
             # - hidden state of objects (visgroups included)
             self.map_file.save(self.filename)
         except Exception as exc:
-            print()
+            error_popup = popup.browser(parent=self, popuptext="Error", msgtext="Error when saving")
+            error_popup.show()
             raise exc
         print("Saved!")
         self.never_saved = False
