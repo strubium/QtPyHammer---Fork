@@ -1,12 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class browser(QtWidgets.QDialog):
-    def __init__(self, parent, text):
+    def __init__(self, parent, popuptext, msgtext):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
-        self.setWindowTitle("Popup")
+        self.setWindowTitle(popuptext)
 
         # Add QLabel to display text
-        self.text_label = QtWidgets.QLabel(text)
+        self.text_label = QtWidgets.QLabel(msgtext)
         self.text_label.setAlignment(QtCore.Qt.AlignCenter)  # Center align text
         self.text_label.setWordWrap(True)  # Enable word wrap
         self.text_label.setMargin(10)  # Add margin to the label
