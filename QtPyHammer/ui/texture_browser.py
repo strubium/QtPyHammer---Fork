@@ -2,6 +2,8 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from ..ui import popup
+
 
 class TextureBrowser(QtWidgets.QDialog):
     # https://doc.qt.io/qt-5/qdialog.html
@@ -78,8 +80,9 @@ class TextureBrowser(QtWidgets.QDialog):
         layout.addWidget(image_label)
 
     def search(self, keyword):
-        print(f"Trying to Search {keyword}!")
-
+        search_popup = popup.browser(parent=self, popuptext="Notification", msgtext=f"Trying to Search {keyword}!")
+        search_popup.show()
+        # TODO: doesnt filter yet
 
 class FlowLayout(QtWidgets.QLayout):
     """A ``QLayout`` that aranges its child widgets horizontally and
