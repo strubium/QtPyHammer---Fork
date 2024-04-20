@@ -80,9 +80,13 @@ class TextureBrowser(QtWidgets.QDialog):
         layout.addWidget(image_label)
 
     def search(self, keyword):
-        search_popup = popup.browser(parent=self, popuptext="Notification", msgtext=f"Searching for: {keyword}!")
-        search_popup.show()
-        # TODO: doesnt filter yet
+        if not keyword:
+            error_popup = popup.browser(parent=self, popuptext="Error", msgtext="Search text cannot be empty")
+            error_popup.show()
+        else:
+            search_popup = popup.browser(parent=self, popuptext="Notification", msgtext=f"Searching for: {keyword}!")
+            search_popup.show()
+            # TODO: doesnt filter yet
 
 class FlowLayout(QtWidgets.QLayout):
     """A ``QLayout`` that aranges its child widgets horizontally and
