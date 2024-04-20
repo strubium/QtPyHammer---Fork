@@ -263,8 +263,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["Help/Offline"].triggered.connect(ui.
         help_menu.addSeparator()
         self.actions["Help/About QPH"] = help_menu.addAction("About QtPyHammer")
-        self.actions["Help/About QPH"].triggered.connect(lambda: open_url(QtCore.QUrl(
-                                "https://github.com/snake-biscuits/QtPyHammer/wiki")))
+        about_popup = popup.browser(parent=self, popuptext="About", msgtext="A Python alternative to Valve Hammer Editor 4.x, forked from QtPyHammer\nVersion: v0.0.5forked")
+        self.actions["Help/About QPH"].triggered.connect(about_popup.show)
         self.actions["Help/About Qt"] = help_menu.addAction("About Qt")
         self.actions["Help/About Qt"].triggered.connect(lambda: open_url(QtCore.QUrl(
                             "https://github.com/spyder-ide/qtpy")))
@@ -275,6 +275,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["Help/License"].triggered.connect(ui. #QDialog
         self.actions["Help/Contributors"] = help_menu.addAction("Contributors")
         self.actions["Help/Contributors"].setEnabled(False)
+        self.actions["Help/QPH Wiki"] = help_menu.addAction("QtPyHammer Wiki")
+        self.actions["Help/QPH Wiki"].triggered.connect(lambda: open_url(QtCore.QUrl(
+                                "https://github.com/snake-biscuits/QtPyHammer/wiki")))
         # self.actions["Help/Contributors"].triggered.connect(ui. #QDialog
         help_menu.addSeparator()
         self.actions["Help/VDC"] = help_menu.addAction("Valve Developer Community")

@@ -80,7 +80,7 @@ class TextureBrowser(QtWidgets.QDialog):
         layout.addWidget(image_label)
 
     def search(self, keyword):
-        search_popup = popup.browser(parent=self, popuptext="Notification", msgtext=f"Trying to Search {keyword}!")
+        search_popup = popup.browser(parent=self, popuptext="Notification", msgtext=f"Searching for: {keyword}!")
         search_popup.show()
         # TODO: doesnt filter yet
 
