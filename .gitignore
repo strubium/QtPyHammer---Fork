@@ -127,3 +127,4 @@ dmypy.json
 # Visual Studio Code settings
 .vscode/
 /.vs
+/.idea

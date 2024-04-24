@@ -46,9 +46,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Save As"] = file_menu.addAction("Save &As")
         def save_file_as(): ops.save_file_as(self, self.map_browser)
         self.actions["File/Save As"].triggered.connect(save_file_as)
-        self.actions["File/Texture Test"] = file_menu.addAction("Texture Menu (for testing)")
-        texture_popup = texture_browser.TextureBrowser(parent=self)
-        self.actions["File/Texture Test"].triggered.connect(texture_popup.show)
         file_menu.addSeparator()
         # self.import_menu = file_menu.addMenu("Import")
         # self.import_menu.addAction(".obj")
@@ -343,6 +340,35 @@ class MainWindow(QtWidgets.QMainWindow):
         # undo redo | carve | group ungroup ignore | hide unhide alt-hide |
         # cut copy paste | cordon | TL <TL> | DD 3D DW DA |
         # compile helpers 2D_models fade CM prop_detail NO_DRAW
+
+        right_toolbar = QtWidgets.QToolBar("Sidebar")
+        right_toolbar.setFixedWidth(115)
+        label_1 = QtWidgets.QLabel("Select:")
+        right_toolbar.addWidget(label_1)
+        right_toolbar.setMovable(False)
+        button_1 = QtWidgets.QPushButton("Groups")
+        button_1.setFixedSize(100, 25)
+        button_1.setEnabled(False)
+        right_toolbar.addWidget(button_1)
+        button_2 = QtWidgets.QPushButton("Objects")
+        button_2.setFixedSize(100, 25)
+        button_2.setEnabled(False)
+        right_toolbar.addWidget(button_2)
+        button_3 = QtWidgets.QPushButton("Solids")
+        button_3.setFixedSize(100, 25)
+        button_3.setEnabled(False)
+        right_toolbar.addWidget(button_3)
+        right_toolbar.addSeparator()
+
+        label_2 = QtWidgets.QLabel("Texture Selection:")
+        right_toolbar.addWidget(label_2)
+        button_4 = QtWidgets.QPushButton("Browse")
+        button_4.setFixedSize(100, 25)
+        texture_popup = texture_browser.TextureBrowser(parent=self)
+        button_4.clicked.connect(texture_popup.show)
+        right_toolbar.addWidget(button_4)
+
+        self.addToolBar(QtCore.Qt.RightToolBarArea, right_toolbar)
 
     def open(self, filename):  # allows loading via drag & drop
         raw_filename, extension = os.path.splitext(filename)
