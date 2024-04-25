@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import subprocess
 
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
@@ -52,7 +53,7 @@ class browser(QtWidgets.QDialog):
         cancel_button.clicked.connect(self.reject)
         bottom_row.addWidget(cancel_button)  
         ok_button = QtWidgets.QPushButton("Ok")
-        ok_button.clicked.connect(self.accept)
+        ok_button.clicked.connect(self.on_ok_clicked)
         ok_button.setDefault(True)
         bottom_row.addWidget(ok_button)    
         base_layout.addLayout(bottom_row)
@@ -60,3 +61,20 @@ class browser(QtWidgets.QDialog):
 
         # Resize the dialog to fit the text
         self.adjustSize()
+    def on_ok_clicked(self):
+        vbsp_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vbsp.exe'
+        vvis_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vvis.exe'
+        vrad_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vrad.exe'
+
+        game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
+        file_path = r'C:\Users\hudso\OneDrive\Desktop\SCP Maps\Slammin Test.vmf'
+
+        vvis_arguments = ['-game', game_path, file_path]
+
+        vbsp_command = [vbsp_path] + vvis_arguments
+        vvis_command = [vvis_path] + vvis_arguments
+        vrad_command = [vrad_path] + vvis_arguments
+        subprocess.run(vbsp_command, check=True)
+        subprocess.run(vvis_command, check=True)
+        subprocess.run(vrad_command, check=True)
+        self.accept()
