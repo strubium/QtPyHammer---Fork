@@ -6,12 +6,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from .. import ops
 from ..ui import entity
 from ..ui import workspace
+from ..utilities import lang
+
 
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
+        lang.setLanguage("english")
         self.setWindowTitle("QtPyHammer")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
@@ -63,7 +66,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
 
         edit_menu = self.main_menu.addMenu("&Edit")
-        self.actions["Edit/Undo"] = edit_menu.addAction("Undo")
+        self.actions["Edit/Undo"] = edit_menu.addAction(lang.langUndo())
         self.actions["Edit/Undo"].setEnabled(False)
         # self.actions["Edit/Undo"].triggered.connect( # edit timeline
         self.actions["Edit/Redo"] = edit_menu.addAction("Redo")
