@@ -69,11 +69,39 @@ class browser(QtWidgets.QDialog):
         game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
         file_path = r'C:\Users\hudso\OneDrive\Desktop\SCP Maps\Slammin Test.vmf'
 
-        vvis_arguments = ['-game', game_path, file_path]
+        bsp_index = self.bsp_combo_box.currentIndex()
+        vis_index = self.vis_combo_box.currentIndex()
+        rad_index = self.rad_combo_box.currentIndex()
 
-        vbsp_command = [vbsp_path] + vvis_arguments
+        vbsp_arguments = ['-game', game_path, file_path, '-leaktest']
+        vvis_arguments = ['-game', game_path, file_path]
+        vrad_arguments = ['-game', game_path, file_path]
+
+        if bsp_index == 0:
+            vbsp_arguments += []
+        elif bsp_index == 1:
+            vbsp_arguments += []
+        elif bsp_index == 2:
+            vbsp_arguments += ['-onlyents']
+
+        if vis_index == 0:
+            vvis_arguments += []
+        elif vis_index == 1:
+            vvis_arguments += []
+        elif vis_index == 2:
+            vvis_arguments += ['-fast']
+
+        if rad_index == 0:
+            vrad_arguments += []
+        elif rad_index == 1:
+            vrad_arguments += []
+        elif rad_index == 2:
+            vrad_arguments += ['-fast']
+
+        vbsp_command = [vbsp_path] + vbsp_arguments
         vvis_command = [vvis_path] + vvis_arguments
-        vrad_command = [vrad_path] + vvis_arguments
+        vrad_command = [vrad_path] + vrad_arguments
+
         subprocess.run(vbsp_command, check=True)
         subprocess.run(vvis_command, check=True)
         subprocess.run(vrad_command, check=True)
