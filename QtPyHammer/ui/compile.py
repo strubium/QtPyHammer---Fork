@@ -37,6 +37,10 @@ class browser(QtWidgets.QDialog):
         self.rad_combo_box.addItem("Normal")
         self.rad_combo_box.addItem("Fast")
         self.rad_combo_box.setCurrentIndex(self.rad_combo_box.findText("Fast"))
+        
+        self.box4 = QtWidgets.QLabel("Path to VMF")
+        self.textbox = QtWidgets.QLineEdit(self)
+        self.textbox.resize(280,40)
 
         # Layout setup
         base_layout = QtWidgets.QVBoxLayout()
@@ -67,7 +71,7 @@ class browser(QtWidgets.QDialog):
         vvis_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vvis.exe'
         vrad_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vrad.exe'
 
-        game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
+        game_path = self.textbox.text()
         file_path = r'C:\Users\hudso\OneDrive\Desktop\SCP Maps\Slammin Test.vmf'
 
         bsp_index = self.bsp_combo_box.currentIndex()
