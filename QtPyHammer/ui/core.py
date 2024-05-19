@@ -2,9 +2,11 @@
 import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIcon
+
 
 from .. import ops
-from ..ui import entity
+from ..ui import entity, popup, texture_browser, compile
 from ..ui import workspace
 from ..utilities import lang
 
@@ -12,10 +14,12 @@ from ..utilities import lang
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
+
+
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
         lang.setLanguage("english")
-        self.setWindowTitle("QtPyHammer")
+        self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
         self.tabs = QtWidgets.QTabWidget()
@@ -59,8 +63,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["File/Options"].triggered.connect(ui.settings)
         file_menu.addSeparator()
         self.actions["File/Compile"] = file_menu.addAction(lang.langCompile())
-        self.actions["File/Compile"].setEnabled(False)
-        # self.actions["File/Compile"].triggered.connect(ui.compile)
+        compile_menu = compile.browser(parent=self)
+        self.actions["File/Compile"].triggered.connect(compile_menu.show)
         file_menu.addSeparator()
         self.actions["File/Exit"] = file_menu.addAction(lang.langExit())
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
@@ -116,8 +120,8 @@ class MainWindow(QtWidgets.QMainWindow):
             ent_browser = entity.browser(parent=self)
             self.actions["Tools/Brush to Entity"].triggered.connect(ent_browser.show)
         except Exception as exc:
-            # log the full exception for debug
-            print("Failed to load .fgds!")  # use the builtin logger module
+            error_popup = popup.browser(parent=self, popuptext="Error", msgtext="Failed to load .fgds!")
+            self.actions["Tools/Brush to Entity"].triggered.connect(error_popup.show)
             self.actions["Tools/Brush to Entity"].setEnabled(False)
             raise exc
         self.actions["Tools/Entity to Brush"] = tools_menu.addAction("&Move to World")
@@ -259,23 +263,26 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["Help/Offline"].triggered.connect(ui.
         help_menu.addSeparator()
         self.actions["Help/About QPH"] = help_menu.addAction("About QtPyHammer")
-        self.actions["Help/About QPH"].triggered.connect(lambda: open_url(QtCore.QUrl(
-                                "https://github.com/snake-biscuits/QtPyHammer/wiki")))
+        about_popup = popup.browser(parent=self, popuptext="About", msgtext="A Python alternative to Valve Hammer Editor 4.x, forked from QtPyHammer\n\nVersion: v0.0.5forked")
+        self.actions["Help/About QPH"].triggered.connect(about_popup.show)
         self.actions["Help/About Qt"] = help_menu.addAction("About Qt")
-        self.actions["Help/About Qt"].setEnabled(False)
+        self.actions["Help/About Qt"].triggered.connect(lambda: open_url(QtCore.QUrl(
+                            "https://github.com/spyder-ide/qtpy")))
         # self.actions["Help/About Qt"].triggered.connect(ui. #QDialog
         self.actions["Help/License"] = help_menu.addAction("License")
-        self.actions["Help/License"].setEnabled(False)
+        self.actions["Help/License"].triggered.connect(lambda: open_url(QtCore.QUrl(
+                            "https://github.com/strubium/QtPyHammer/blob/master/LICENSE")))
         # self.actions["Help/License"].triggered.connect(ui. #QDialog
         self.actions["Help/Contributors"] = help_menu.addAction("Contributors")
         self.actions["Help/Contributors"].setEnabled(False)
+        self.actions["Help/QPH Wiki"] = help_menu.addAction("QtPyHammer Wiki")
+        self.actions["Help/QPH Wiki"].triggered.connect(lambda: open_url(QtCore.QUrl(
+                                "https://github.com/snake-biscuits/QtPyHammer/wiki")))
         # self.actions["Help/Contributors"].triggered.connect(ui. #QDialog
         help_menu.addSeparator()
         self.actions["Help/VDC"] = help_menu.addAction("Valve Developer Community")
         self.actions["Help/VDC"].triggered.connect(lambda: open_url(QtCore.QUrl(
                             "https://developer.valvesoftware.com/wiki/Main_Page")))
-        self.actions["Help/TF2Maps"] = help_menu.addAction("TF2Maps.net")
-        self.actions["Help/TF2Maps"].triggered.connect(lambda: open_url(QtCore.QUrl("https://tf2maps.net")))
 
         # attach all actions to hotkeys
         app = QtWidgets.QApplication.instance()
@@ -291,26 +298,80 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setMenuBar(self.main_menu)
 
         # TOOLBARS
-        # key_tools = QtWidgets.QToolBar("Tools 1")
-        # key_tools.setMovable(False)
-        # button_1 = QtWidgets.QToolButton() # need icons (.png)
-        # button_1.setToolTip("Toggle 2D grid visibility")
-        # key_tools.addWidget(button_1)
-        # button_2 = QtWidgets.QToolButton()
-        # button_2.setToolTip("Toggle 3D grid visibility")
-        # key_tools.addWidget(button_2)
-        # button_3 = QtWidgets.QToolButton()
-        # button_3.setToolTip("Grid scale -  [")
-        # key_tools.addWidget(button_3)
-        # button_3 = QtWidgets.QToolButton()
-        # button_3.setDefaultAction(...) # shortcut "]"
-        # key_tools.addWidget(button_3)
-        # key_tools.addSeparator()
+        key_tools = QtWidgets.QToolBar("Tools")
+        key_tools.setMovable(False)
+        button_1 = QtWidgets.QToolButton() # need icons (.png)
+        button_1.setToolTip("Toggle 2D grid visibility")
+        button_1.setIcon(QIcon("icons/2dHammerIcon"))
+        button_1.setEnabled(False)
+        key_tools.addWidget(button_1)
+        button_2 = QtWidgets.QToolButton()
+        button_2.setToolTip("Toggle 3D grid visibility")
+        button_2.setIcon(QIcon("icons/3dHammerIcon"))
+        button_2.setEnabled(False)
+        key_tools.addWidget(button_2)
+        button_3 = QtWidgets.QToolButton()
+        button_3.setToolTip("Smaller Grid")
+        button_3.setEnabled(False)
+        key_tools.addWidget(button_3)
+        button_4 = QtWidgets.QToolButton()
+        button_4.setToolTip("Larger Grid")
+        button_4.setIcon(QIcon("icons/LargeGridIcon"))
+        button_4.setEnabled(False)
+        key_tools.addWidget(button_4)
+        key_tools.addSeparator()
+        button_5= QtWidgets.QToolButton()
+        button_5.setToolTip("Load Window State")
+        button_5.setEnabled(False)
+        key_tools.addWidget(button_5)
+        button_6= QtWidgets.QToolButton()
+        button_6.setToolTip("Save Window State")
+        button_6.setEnabled(False)
+        key_tools.addWidget(button_6)
+        key_tools.addSeparator()
+        button_7= QtWidgets.QToolButton()
+        button_7.setToolTip("Undo")
+        button_7.setEnabled(False)
+        key_tools.addWidget(button_7)
+        button_8= QtWidgets.QToolButton()
+        button_8.setToolTip("Redo")
+        button_8.setEnabled(False)
+        key_tools.addWidget(button_8)
+        key_tools.addSeparator()
 
-        # self.addToolBar(QtCore.Qt.TopToolBarArea, key_tools)
+        self.addToolBar(QtCore.Qt.TopToolBarArea, key_tools)
         # undo redo | carve | group ungroup ignore | hide unhide alt-hide |
         # cut copy paste | cordon | TL <TL> | DD 3D DW DA |
         # compile helpers 2D_models fade CM prop_detail NO_DRAW
+
+        right_toolbar = QtWidgets.QToolBar("Sidebar")
+        right_toolbar.setFixedWidth(115)
+        label_1 = QtWidgets.QLabel("Select:")
+        right_toolbar.addWidget(label_1)
+        right_toolbar.setMovable(False)
+        button_1 = QtWidgets.QPushButton("Groups")
+        button_1.setFixedSize(100, 25)
+        button_1.setEnabled(False)
+        right_toolbar.addWidget(button_1)
+        button_2 = QtWidgets.QPushButton("Objects")
+        button_2.setFixedSize(100, 25)
+        button_2.setEnabled(False)
+        right_toolbar.addWidget(button_2)
+        button_3 = QtWidgets.QPushButton("Solids")
+        button_3.setFixedSize(100, 25)
+        button_3.setEnabled(False)
+        right_toolbar.addWidget(button_3)
+        right_toolbar.addSeparator()
+
+        label_2 = QtWidgets.QLabel("Texture Selection:")
+        right_toolbar.addWidget(label_2)
+        button_4 = QtWidgets.QPushButton("Browse")
+        button_4.setFixedSize(100, 25)
+        texture_popup = texture_browser.TextureBrowser(parent=self)
+        button_4.clicked.connect(texture_popup.show)
+        right_toolbar.addWidget(button_4)
+
+        self.addToolBar(QtCore.Qt.RightToolBarArea, right_toolbar)
 
     def open(self, filename):  # allows loading via drag & drop
         raw_filename, extension = os.path.splitext(filename)

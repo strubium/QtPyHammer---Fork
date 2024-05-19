@@ -3,9 +3,8 @@ import enum
 
 from PyQt5 import QtWidgets
 
-from . import viewport
+from . import viewport, popup
 from ..ops.vmf import VmfInterface
-from ..utilities import raycast
 
 
 class SELECTION_MODE(enum.Enum):
@@ -28,7 +27,6 @@ class VmfTab(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout()  # holds the viewport
         # ^ 2 QSplitter(s) will be used for quad viewports
         self.viewport = viewport.MapViewport3D(self)
-        self.viewport.raycast.connect(self.select)
         # self.viewport.setViewMode.connect(...)
         self.viewport.setFocus()  # not working as intended
         layout.addWidget(self.viewport)
@@ -57,7 +55,8 @@ class VmfTab(QtWidgets.QWidget):
             # - hidden state of objects (visgroups included)
             self.map_file.save(self.filename)
         except Exception as exc:
-            print()
+            error_popup = popup.browser(parent=self, popuptext="Error", msgtext="Error when saving")
+            error_popup.show()
             raise exc
         print("Saved!")
         self.never_saved = False
