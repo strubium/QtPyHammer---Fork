@@ -6,13 +6,6 @@ class browser(QtWidgets.QDialog):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
         self.setWindowTitle("Run Map")
 
-        # Add QLabel to display text
-        self.text_label = QtWidgets.QLabel("The Compile Menu is not implemented yet")
-        self.text_label.setAlignment(QtCore.Qt.AlignCenter)  # Center align text
-        self.text_label.setWordWrap(True)  # Enable word wrap
-        self.text_label.setMargin(10)  # Add margin to the label
-        self.text_label.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-
         # Add QLabel widgets
         self.box1 = QtWidgets.QLabel("Run BSP:")
         self.bsp_combo_box = QtWidgets.QComboBox()
@@ -44,7 +37,6 @@ class browser(QtWidgets.QDialog):
 
         # Layout setup
         base_layout = QtWidgets.QVBoxLayout()
-        base_layout.addWidget(self.text_label)
         base_layout.addWidget(self.box1)
         base_layout.addWidget(self.bsp_combo_box)
         base_layout.addWidget(self.box2)
