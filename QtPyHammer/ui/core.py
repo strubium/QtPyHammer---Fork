@@ -8,6 +8,8 @@ from PyQt5.QtGui import QIcon
 from .. import ops
 from ..ui import entity, popup, texture_browser, compile
 from ..ui import workspace
+from ..utilities import lang
+
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -16,6 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
+        lang.setLanguage("english")
         self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
@@ -59,18 +62,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Options"].setEnabled(False)
         # self.actions["File/Options"].triggered.connect(ui.settings)
         file_menu.addSeparator()
-        self.actions["File/Compile"] = file_menu.addAction("Compile")
+        self.actions["File/Compile"] = file_menu.addAction(lang.langCompile())
         compile_menu = compile.browser(parent=self)
         self.actions["File/Compile"].triggered.connect(compile_menu.show)
         file_menu.addSeparator()
-        self.actions["File/Exit"] = file_menu.addAction("Exit")
+        self.actions["File/Exit"] = file_menu.addAction(lang.langExit())
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
 
         edit_menu = self.main_menu.addMenu("&Edit")
-        self.actions["Edit/Undo"] = edit_menu.addAction("Undo")
+        self.actions["Edit/Undo"] = edit_menu.addAction(lang.langUndo())
         self.actions["Edit/Undo"].setEnabled(False)
         # self.actions["Edit/Undo"].triggered.connect( # edit timeline
-        self.actions["Edit/Redo"] = edit_menu.addAction("Redo")
+        self.actions["Edit/Redo"] = edit_menu.addAction(lang.langRedo())
         self.actions["Edit/Redo"].setEnabled(False)
         # self.actions["Edit/Redo"].triggered.connect( # edit timeline
         self.actions["Edit/History"] = edit_menu.addMenu("&History...")
