@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import subprocess
 
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
@@ -13,32 +14,102 @@ class browser(QtWidgets.QDialog):
         self.text_label.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
 
         # Add QLabel widgets
-        self.box1 = QtWidgets.QLabel()
-        self.box1.setText("Run BSP")
-        self.box1.setAlignment(QtCore.Qt.AlignCenter)
+        self.box1 = QtWidgets.QLabel("Run BSP:")
+        self.bsp_combo_box = QtWidgets.QComboBox()
+        self.bsp_combo_box.setGeometry(200, 150, 120, 40)
+        self.bsp_combo_box.addItem("No")
+        self.bsp_combo_box.addItem("Normal")
+        self.bsp_combo_box.addItem("Only Entities")
+        self.bsp_combo_box.setCurrentIndex(self.bsp_combo_box.findText("Normal"))
 
-        self.box2 = QtWidgets.QLabel()
-        self.box2.setText("Run VIS")
-        self.box2.setAlignment(QtCore.Qt.AlignCenter)
+        self.box2 = QtWidgets.QLabel("Run VIS:")
+        self.vis_combo_box = QtWidgets.QComboBox()
+        self.vis_combo_box.setGeometry(200, 150, 120, 40)
+        self.vis_combo_box.addItem("No")
+        self.vis_combo_box.addItem("Normal")
+        self.vis_combo_box.addItem("Fast")
+        self.vis_combo_box.setCurrentIndex(self.vis_combo_box.findText("Normal"))
 
-        self.box3 = QtWidgets.QLabel()
-        self.box3.setText("Run RAD")
-        self.box3.setAlignment(QtCore.Qt.AlignCenter)
+        self.box3 = QtWidgets.QLabel("Run RAD:")
+        self.rad_combo_box = QtWidgets.QComboBox()
+        self.rad_combo_box.setGeometry(200, 150, 120, 40)
+        self.rad_combo_box.addItem("No")
+        self.rad_combo_box.addItem("Normal")
+        self.rad_combo_box.addItem("Fast")
+        self.rad_combo_box.setCurrentIndex(self.rad_combo_box.findText("Fast"))
+        
+        self.box4 = QtWidgets.QLabel("Path to VMF")
+        self.textbox = QtWidgets.QLineEdit(self)
+        self.textbox.resize(280,40)
 
         # Layout setup
         base_layout = QtWidgets.QVBoxLayout()
         base_layout.addWidget(self.text_label)
         base_layout.addWidget(self.box1)
+        base_layout.addWidget(self.bsp_combo_box)
         base_layout.addWidget(self.box2)
+        base_layout.addWidget(self.vis_combo_box)
         base_layout.addWidget(self.box3)
+        base_layout.addWidget(self.rad_combo_box)
+        base_layout.addWidget(self.box4)
+        base_layout.addWidget(self.textbox)
         bottom_row = QtWidgets.QHBoxLayout()
         bottom_row.addStretch(1)
+        cancel_button = QtWidgets.QPushButton("Cancel")
+        cancel_button.clicked.connect(self.reject)
+        bottom_row.addWidget(cancel_button)
         ok_button = QtWidgets.QPushButton("Ok")
-        ok_button.clicked.connect(self.accept)
+        ok_button.clicked.connect(self.on_ok_clicked)
         ok_button.setDefault(True)
-        bottom_row.addWidget(ok_button)    
+        bottom_row.addWidget(ok_button)
         base_layout.addLayout(bottom_row)
         self.setLayout(base_layout)
 
         # Resize the dialog to fit the text
         self.adjustSize()
+
+    def on_ok_clicked(self):
+        vbsp_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vbsp.exe'
+        vvis_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vvis.exe'
+        vrad_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vrad.exe'
+
+        game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
+        file_path = self.textbox.text()
+
+        bsp_index = self.bsp_combo_box.currentIndex()
+        vis_index = self.vis_combo_box.currentIndex()
+        rad_index = self.rad_combo_box.currentIndex()
+
+        vbsp_arguments = ['-game', game_path]
+        vvis_arguments = ['-game', game_path]
+        vrad_arguments = ['-game', game_path]
+
+        if bsp_index == 0:
+            vbsp_arguments += ['-leaktest', file_path]
+        elif bsp_index == 1:
+            vbsp_arguments += ['-leaktest', file_path]
+        elif bsp_index == 2:
+            vbsp_arguments += ['-leaktest', '-onlyents', file_path]
+
+        if vis_index == 0:
+            vvis_arguments += [file_path]
+        elif vis_index == 1:
+            vvis_arguments += [file_path]
+        elif vis_index == 2:
+            vvis_arguments += ['-fast', file_path]
+
+        if rad_index == 0:
+            vrad_arguments += [file_path]
+        elif rad_index == 1:
+            vrad_arguments += [file_path]
+        elif rad_index == 2:
+            vrad_arguments += ['-fast', file_path]
+
+        vbsp_command = [vbsp_path] + vbsp_arguments
+        vvis_command = [vvis_path] + vvis_arguments
+        vrad_command = [vrad_path] + vrad_arguments
+
+        subprocess.run(vbsp_command, check=True)
+        subprocess.run(vvis_command, check=True)
+        subprocess.run(vrad_command, check=True)
+        self.accept()
