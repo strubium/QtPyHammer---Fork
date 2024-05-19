@@ -58,18 +58,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Options"].setEnabled(False)
         # self.actions["File/Options"].triggered.connect(ui.settings)
         file_menu.addSeparator()
-        self.actions["File/Compile"] = file_menu.addAction("Compile")
+        self.actions["File/Compile"] = file_menu.addAction(lang.langCompile())
         self.actions["File/Compile"].setEnabled(False)
         # self.actions["File/Compile"].triggered.connect(ui.compile)
         file_menu.addSeparator()
-        self.actions["File/Exit"] = file_menu.addAction("Exit")
+        self.actions["File/Exit"] = file_menu.addAction(lang.langExit())
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
 
         edit_menu = self.main_menu.addMenu("&Edit")
         self.actions["Edit/Undo"] = edit_menu.addAction(lang.langUndo())
         self.actions["Edit/Undo"].setEnabled(False)
         # self.actions["Edit/Undo"].triggered.connect( # edit timeline
-        self.actions["Edit/Redo"] = edit_menu.addAction("Redo")
+        self.actions["Edit/Redo"] = edit_menu.addAction(lang.langRedo())
         self.actions["Edit/Redo"].setEnabled(False)
         # self.actions["Edit/Redo"].triggered.connect( # edit timeline
         self.actions["Edit/History"] = edit_menu.addMenu("&History...")

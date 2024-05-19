@@ -33,3 +33,23 @@ def langUndo(language=usingLanguage):
             return "Annulla"
         case _:
             return "Undo"
+def langRedo(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Redo"
+        case _:
+            return "Redo"
+
+def langCompile(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Compile"
+        case _:
+            return "Compile"
+
+def langExit(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Exit"
+        case _:
+            return "Exit"
