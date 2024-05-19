@@ -51,6 +51,8 @@ class browser(QtWidgets.QDialog):
         base_layout.addWidget(self.vis_combo_box)
         base_layout.addWidget(self.box3)
         base_layout.addWidget(self.rad_combo_box)
+        base_layout.addWidget(self.box4)
+        base_layout.addWidget(self.textbox)
         bottom_row = QtWidgets.QHBoxLayout()
         bottom_row.addStretch(1)
         cancel_button = QtWidgets.QPushButton("Cancel")
@@ -71,8 +73,8 @@ class browser(QtWidgets.QDialog):
         vvis_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vvis.exe'
         vrad_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vrad.exe'
 
-        game_path = self.textbox.text()
-        file_path = r'C:\Users\hudso\OneDrive\Desktop\SCP Maps\Slammin Test.vmf'
+        game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
+        file_path = self.textbox.text()
 
         bsp_index = self.bsp_combo_box.currentIndex()
         vis_index = self.vis_combo_box.currentIndex()
