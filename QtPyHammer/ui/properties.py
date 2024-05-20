@@ -1,6 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ..utilities import lang
-
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
@@ -30,7 +29,6 @@ class browser(QtWidgets.QDialog):
         base_layout.addWidget(self.render_mod_combo_box)
         base_layout.addWidget(self.box2)
         base_layout.addWidget(self.lang_combo_box)
-        
         bottom_row = QtWidgets.QHBoxLayout()
         bottom_row.addStretch(1)
         ok_button = QtWidgets.QPushButton(lang.langOk())
@@ -46,4 +44,5 @@ class browser(QtWidgets.QDialog):
     
     def on_ok_clicked(self):
         render_mod_index = self.render_mod_combo_box.currentIndex()
-        lang.setLanguage(self.lang_combo_box.text())
+        lang.setLanguage(self.lang_combo_box.currentText())
+        self.accept()
