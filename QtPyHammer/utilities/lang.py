@@ -3,7 +3,40 @@ usingLanguage = "english"  # Default language
 def setLanguage(language):
     global usingLanguage
     usingLanguage = language.lower()
+    
+def langFile(language=usingLanguage):
+    match(language):
+        case "english":
+            return "File"
+        case "spanish":
+            return "Archivo"
+        case "russian":
+            return "Файл"
+        case _:
+            return "File"
+            
+def langEdit(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Edit"
+        case "spanish":
+            return "Editar"
+        case "russian":
+            return "Редактировать"
+        case _:
+            return "Edit"
 
+def langTools(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Tools"
+        case "spanish":
+            return "Herramientas"
+        case "russian":
+            return "Инструменты"
+        case _:
+            return "Tools"
+            
 def langOk(language=usingLanguage):
     match(language):
         case "english":
