@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from ..utilities import lang
 
 class browser(QtWidgets.QDialog):
     def __init__(self, parent, popuptext, msgtext):
@@ -17,7 +18,7 @@ class browser(QtWidgets.QDialog):
         base_layout.addWidget(self.text_label)
         bottom_row = QtWidgets.QHBoxLayout()
         bottom_row.addStretch(1)
-        ok_button = QtWidgets.QPushButton("Ok")
+        ok_button = QtWidgets.QPushButton(lang.langOk())
         ok_button.clicked.connect(self.accept)
         ok_button.setDefault(True)
         bottom_row.addWidget(ok_button)
