@@ -8,14 +8,8 @@ def langOk(language=usingLanguage):
     match(language):
         case "english":
             return "Ok"
-        case "french":
-            return "D'accord"
         case "spanish":
             return "De acuerdo"
-        case "german":
-            return "Ok"
-        case "italian":
-            return "Ok"
         case _:
             return "Ok"
 
@@ -52,6 +46,8 @@ def langExit(language=usingLanguage):
     match(language):
         case "english":
             return "Exit"
+        case "french":
+            return "Sortir"
         case _:
             return "Exit"
 
@@ -59,6 +55,8 @@ def langNo(language=usingLanguage):
     match(language):
         case "english":
             return "No"
+        case "french":
+            return "Non"
         case _:
             return "No"
 
@@ -66,6 +64,8 @@ def langNormal(language=usingLanguage):
     match(language):
         case "english":
             return "Normal"
+        case "french":
+            return "Normale"
         case _:
             return "Normal"
 
@@ -73,5 +73,7 @@ def langFast(language=usingLanguage):
     match(language):
         case "english":
             return "Fast"
+        case "french":
+            return "Rapide"
         case _:
             return "Fast"
