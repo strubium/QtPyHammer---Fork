@@ -46,6 +46,9 @@ class TextureBrowser(QtWidgets.QDialog):
         # finally add scrollarea widget to the outer QVBoxLayout
         main_layout.addWidget(scroll)
         main_layout.addWidget(QtWidgets.QLabel("Search Options"))
+        # main_layout.addWidget(QtWidgets.QLabel("Max:"))
+        # main_layout.addWidget(QtWidgets.QLineEdit(self).setPlaceholderText("400").resize(280,40))
+        
         # list of checkboxes?
         # colour-range (hue) slider (.vtf reflectivity value)
 
