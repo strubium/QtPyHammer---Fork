@@ -58,6 +58,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # export_menu.addAction(".smd")
         file_menu.addSeparator()
         self.actions["File/Options"] = file_menu.addAction("&Options")
+        properties_menu = properties.browser(parent=self)
         self.actions["File/Options"].triggered.connect(properties_menu.show)
         file_menu.addSeparator()
         self.actions["File/Compile"] = file_menu.addAction(lang.langCompile())
