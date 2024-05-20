@@ -274,11 +274,10 @@ class MainWindow(QtWidgets.QMainWindow):
                             "https://github.com/strubium/QtPyHammer/blob/master/LICENSE")))
         # self.actions["Help/License"].triggered.connect(ui. #QDialog
         self.actions["Help/Contributors"] = help_menu.addAction("Contributors")
-        self.actions["Help/Contributors"].setEnabled(False)
+        self.actions["Help/Contributors"].triggered.connect(lambda: open_url(QtCore.QUrl("https://github.com/QtPyHammer-devs/QtPyHammer/graphs/contributors")))
         self.actions["Help/QPH Wiki"] = help_menu.addAction("QtPyHammer Wiki")
         self.actions["Help/QPH Wiki"].triggered.connect(lambda: open_url(QtCore.QUrl(
                                 "https://github.com/snake-biscuits/QtPyHammer/wiki")))
-        # self.actions["Help/Contributors"].triggered.connect(ui. #QDialog
         help_menu.addSeparator()
         self.actions["Help/VDC"] = help_menu.addAction("Valve Developer Community")
         self.actions["Help/VDC"].triggered.connect(lambda: open_url(QtCore.QUrl(
