@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+from ..utilities import lang
 import subprocess
 
 class browser(QtWidgets.QDialog):
@@ -10,26 +12,26 @@ class browser(QtWidgets.QDialog):
         self.box1 = QtWidgets.QLabel("Run BSP:")
         self.bsp_combo_box = QtWidgets.QComboBox()
         self.bsp_combo_box.setGeometry(200, 150, 120, 40)
-        self.bsp_combo_box.addItem("No")
-        self.bsp_combo_box.addItem("Normal")
+        self.bsp_combo_box.addItem(lang.langNo())
+        self.bsp_combo_box.addItem(lang.langNormal())
         self.bsp_combo_box.addItem("Only Entities")
         self.bsp_combo_box.setCurrentIndex(self.bsp_combo_box.findText("Normal"))
 
         self.box2 = QtWidgets.QLabel("Run VIS:")
         self.vis_combo_box = QtWidgets.QComboBox()
         self.vis_combo_box.setGeometry(200, 150, 120, 40)
-        self.vis_combo_box.addItem("No")
-        self.vis_combo_box.addItem("Normal")
-        self.vis_combo_box.addItem("Fast")
-        self.vis_combo_box.setCurrentIndex(self.vis_combo_box.findText("Normal"))
+        self.vis_combo_box.addItem(lang.langNo())
+        self.vis_combo_box.addItem(lang.langNormal())
+        self.vis_combo_box.addItem(lang.langFast())
+        self.vis_combo_box.setCurrentIndex(self.vis_combo_box.findText(lang.langNormal()))
 
         self.box3 = QtWidgets.QLabel("Run RAD:")
         self.rad_combo_box = QtWidgets.QComboBox()
         self.rad_combo_box.setGeometry(200, 150, 120, 40)
-        self.rad_combo_box.addItem("No")
-        self.rad_combo_box.addItem("Normal")
-        self.rad_combo_box.addItem("Fast")
-        self.rad_combo_box.setCurrentIndex(self.rad_combo_box.findText("Fast"))
+        self.rad_combo_box.addItem(lang.langNo())
+        self.rad_combo_box.addItem(lang.langNormal())
+        self.rad_combo_box.addItem(lang.langFast())
+        self.rad_combo_box.setCurrentIndex(self.rad_combo_box.findText(lang.langFast()))
         
         self.box4 = QtWidgets.QLabel("Path to VMF")
         self.textbox = QtWidgets.QLineEdit(self)
