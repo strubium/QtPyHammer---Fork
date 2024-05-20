@@ -35,7 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions = {}
         # ^ {"identifier": action}
         self.main_menu = QtWidgets.QMenuBar()
-        file_menu = self.main_menu.addMenu("&File")
+        file_menu = self.main_menu.addMenu(lang.langFile())
         self.actions["File/New"] = file_menu.addAction("&New")
         def new_file(): ops.new_file(self)
         self.actions["File/New"].triggered.connect(new_file)
@@ -67,7 +67,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Exit"] = file_menu.addAction(lang.langExit())
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
 
-        edit_menu = self.main_menu.addMenu("&Edit")
+        edit_menu = self.main_menu.addMenu(lang.langEdit())
         self.actions["Edit/Undo"] = edit_menu.addAction(lang.langUndo())
         self.actions["Edit/Undo"].setEnabled(False)
         # self.actions["Edit/Undo"].triggered.connect( # edit timeline
@@ -105,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["Edit/Properties"].setEnabled(False)
         # self.actions["Edit/Properties"].triggered.connect(
 
-        tools_menu = self.main_menu.addMenu("&Tools")
+        tools_menu = self.main_menu.addMenu(lang.langTools())
         self.actions["Tools/Group"] = tools_menu.addAction("&Group")
         self.actions["Tools/Group"].setEnabled(False)
         # self.actions["Tools/Group"].triggered.connect(
