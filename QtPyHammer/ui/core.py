@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 
 
 from .. import ops
-from ..ui import entity, popup, texture_browser, compile
+from ..ui import entity, popup, texture_browser, compile, properties
 from ..ui import workspace
 from ..utilities import lang
 
@@ -18,7 +18,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
-        lang.setLanguage("english")
         self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
@@ -59,8 +58,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # export_menu.addAction(".smd")
         file_menu.addSeparator()
         self.actions["File/Options"] = file_menu.addAction("&Options")
-        self.actions["File/Options"].setEnabled(False)
-        # self.actions["File/Options"].triggered.connect(ui.settings)
+        self.actions["File/Options"].triggered.connect(properties_menu.show)
         file_menu.addSeparator()
         self.actions["File/Compile"] = file_menu.addAction(lang.langCompile())
         compile_menu = compile.browser(parent=self)
