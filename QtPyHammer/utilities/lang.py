@@ -10,6 +10,8 @@ def langOk(language=usingLanguage):
             return "Ok"
         case "spanish":
             return "De acuerdo"
+        case "russian":
+            return "Хорошо"
         case _:
             return "Ok"
 
@@ -25,6 +27,8 @@ def langUndo(language=usingLanguage):
             return "Rückgängig machen"
         case "italian":
             return "Annulla"
+        case "russian":
+            return "Отменить"
         case _:
             return "Undo"
             
@@ -32,6 +36,8 @@ def langRedo(language=usingLanguage):
     match(language):
         case "english":
             return "Redo"
+        case "russian":
+            return "Повторить"
         case _:
             return "Redo"
 
@@ -39,6 +45,8 @@ def langCompile(language=usingLanguage):
     match(language):
         case "english":
             return "Compile"
+        case "russian":
+            return "Скомпилировать"
         case _:
             return "Compile"
 
@@ -48,6 +56,8 @@ def langExit(language=usingLanguage):
             return "Exit"
         case "french":
             return "Sortir"
+        case "russian":
+            return "Выход"
         case _:
             return "Exit"
 
@@ -57,6 +67,8 @@ def langNo(language=usingLanguage):
             return "No"
         case "french":
             return "Non"
+        case "russian":
+            return "Нет"
         case _:
             return "No"
 
@@ -66,6 +78,8 @@ def langNormal(language=usingLanguage):
             return "Normal"
         case "french":
             return "Normale"
+        case "russian":
+            return "Нормальный"
         case _:
             return "Normal"
 
@@ -75,5 +89,7 @@ def langFast(language=usingLanguage):
             return "Fast"
         case "french":
             return "Rapide"
+        case "russian":
+            return "Быстрый"
         case _:
             return "Fast"
