@@ -18,6 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
+        self.setWindowIcon(QtGui.QIcon('HammerLogo.png'))
         self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
