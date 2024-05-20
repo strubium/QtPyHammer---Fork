@@ -4,9 +4,9 @@ from ..utilities import lang
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
-        self.setWindowTitle("Properties")
+        self.setWindowTitle("QtPyHammer Properties")
         
-        self.box1 = QtWidgets.QLabel("Render Mode")
+        self.box1 = QtWidgets.QLabel("Render Mode:")
         self.render_mod_combo_box = QtWidgets.QComboBox()
         self.render_mod_combo_box.setGeometry(200, 150, 120, 40)
         self.render_mod_combo_box.addItem("Flat")
