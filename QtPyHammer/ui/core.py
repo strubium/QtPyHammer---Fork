@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 
 
 from .. import ops
-from ..ui import entity, popup, texture_browser, compile
+from ..ui import entity, popup, texture_browser, compile, properties
 from ..ui import workspace
 from ..utilities import lang
 
@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
-        lang.setLanguage("english")
+        self.setWindowIcon(QtGui.QIcon('HammerLogo.png'))
         self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
@@ -36,7 +36,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions = {}
         # ^ {"identifier": action}
         self.main_menu = QtWidgets.QMenuBar()
-        file_menu = self.main_menu.addMenu("&File")
+        file_menu = self.main_menu.addMenu(lang.langFile())
         self.actions["File/New"] = file_menu.addAction("&New")
         def new_file(): ops.new_file(self)
         self.actions["File/New"].triggered.connect(new_file)
@@ -59,8 +59,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # export_menu.addAction(".smd")
         file_menu.addSeparator()
         self.actions["File/Options"] = file_menu.addAction("&Options")
-        self.actions["File/Options"].setEnabled(False)
-        # self.actions["File/Options"].triggered.connect(ui.settings)
+        properties_menu = properties.browser(parent=self)
+        self.actions["File/Options"].triggered.connect(properties_menu.show)
         file_menu.addSeparator()
         self.actions["File/Compile"] = file_menu.addAction(lang.langCompile())
         compile_menu = compile.browser(parent=self)
@@ -69,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["File/Exit"] = file_menu.addAction(lang.langExit())
         self.actions["File/Exit"].triggered.connect(QtCore.QCoreApplication.quit)
 
-        edit_menu = self.main_menu.addMenu("&Edit")
+        edit_menu = self.main_menu.addMenu(lang.langEdit())
         self.actions["Edit/Undo"] = edit_menu.addAction(lang.langUndo())
         self.actions["Edit/Undo"].setEnabled(False)
         # self.actions["Edit/Undo"].triggered.connect( # edit timeline
@@ -107,7 +107,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions["Edit/Properties"].setEnabled(False)
         # self.actions["Edit/Properties"].triggered.connect(
 
-        tools_menu = self.main_menu.addMenu("&Tools")
+        tools_menu = self.main_menu.addMenu(lang.langTools())
         self.actions["Tools/Group"] = tools_menu.addAction("&Group")
         self.actions["Tools/Group"].setEnabled(False)
         # self.actions["Tools/Group"].triggered.connect(

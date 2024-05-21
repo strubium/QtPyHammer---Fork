@@ -3,7 +3,40 @@ usingLanguage = "english"  # Default language
 def setLanguage(language):
     global usingLanguage
     usingLanguage = language.lower()
+    
+def langFile(language=usingLanguage):
+    match(language):
+        case "english":
+            return "File"
+        case "spanish":
+            return "Archivo"
+        case "russian":
+            return "Файл"
+        case _:
+            return "File"
+            
+def langEdit(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Edit"
+        case "spanish":
+            return "Editar"
+        case "russian":
+            return "Редактировать"
+        case _:
+            return "Edit"
 
+def langTools(language=usingLanguage):
+    match(language):
+        case "english":
+            return "Tools"
+        case "spanish":
+            return "Herramientas"
+        case "russian":
+            return "Инструменты"
+        case _:
+            return "Tools"
+            
 def langOk(language=usingLanguage):
     match(language):
         case "english":
@@ -36,6 +69,8 @@ def langRedo(language=usingLanguage):
     match(language):
         case "english":
             return "Redo"
+        case "spanish":
+            return "Rehacer"
         case "russian":
             return "Повторить"
         case _:
@@ -45,6 +80,8 @@ def langCompile(language=usingLanguage):
     match(language):
         case "english":
             return "Compile"
+        case "spanish":
+            return "Compilar"
         case "russian":
             return "Скомпилировать"
         case _:
@@ -56,6 +93,8 @@ def langExit(language=usingLanguage):
             return "Exit"
         case "french":
             return "Sortir"
+        case "spanish":
+            return "Salida"
         case "russian":
             return "Выход"
         case _:
@@ -78,6 +117,8 @@ def langNormal(language=usingLanguage):
             return "Normal"
         case "french":
             return "Normale"
+        case "spanish":
+            return "Normala"
         case "russian":
             return "Нормальный"
         case _:
@@ -89,6 +130,8 @@ def langFast(language=usingLanguage):
             return "Fast"
         case "french":
             return "Rapide"
+        case "spanish":
+            return "Rapido"
         case "russian":
             return "Быстрый"
         case _:
