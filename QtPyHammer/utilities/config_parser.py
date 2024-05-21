@@ -14,16 +14,11 @@ def load_ini(ini):
     return QtCore.QSettings(ini, QtCore.QSettings.IniFormat)
 
 def get_theme():
-  return theme
-  
-def __init__(self, argv):
-  self.folder = os.path.dirname(__file__)
-  self.preferences = load_ini("configs/preferences.ini")
-  game = self.preferences.value("Game", "Team Fortress 2")
-  self.game_config = load_ini(f"configs/games/{game}.ini")
-  self.hotkeys = load_ini("configs/controls/hammer.ini")
-  self.themes = dict()
-  # ^ {theme_name: theme}
+    return theme
+
+def load_theme():
+    self.themes = dict()
+     # ^ {theme_name: theme}
   for filename in os.listdir("configs/themes/"):
       theme_name = filename.rpartition(".")[0]  # filename without extention
       self.themes[theme_name] = load_theme(f"configs/themes/{filename}")
@@ -43,5 +38,20 @@ def __init__(self, argv):
           self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
           # ^ TODO: allow themes to include .css files
           # -- and have them locked to individual widgets?
-  fgd_file = self.game_config.value("Hammer/GameData0")
-  self.fgd = valvefgd.parser.FgdParse(fgd_file)
+
+def load_fgd():
+    fgd_file = self.game_config.value("Hammer/GameData0")
+    self.fgd = valvefgd.parser.FgdParse(fgd_file)
+
+def load_configs():
+    self.folder = os.path.dirname(__file__)
+    self.preferences = load_ini("configs/preferences.ini")
+    game = self.preferences.value("Game", "Team Fortress 2")
+    self.game_config = load_ini(f"configs/games/{game}.ini")
+    self.hotkeys = load_ini("configs/controls/hammer.ini")
+    load_theme()
+    load_fgd()
+
+def __init__(self, argv):
+    load_configs()
+    
