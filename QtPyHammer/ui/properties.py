@@ -3,7 +3,7 @@ from ..utilities import lang
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
-        self.setWindowTitle("QtPyHammer Properties")
+        self.setWindowTitle("QtPyHammer Properties - WIP")
         
         self.box1 = QtWidgets.QLabel("Render Mode:")
         self.render_mod_combo_box = QtWidgets.QComboBox()
@@ -43,6 +43,6 @@ class browser(QtWidgets.QDialog):
     
     
     def on_ok_clicked(self):
-        render_mod_index = self.render_mod_combo_box.currentIndex()
-        lang.setLanguage(self.lang_combo_box.currentText())
+       # render_mod_index = self.render_mod_combo_box.currentIndex()
+       # lang.setLanguage(self.lang_combo_box.currentText())
         self.accept()
