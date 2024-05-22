@@ -130,17 +130,17 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
 
     # Qt Signals
     def do_raycast(self, click_x, click_y):
-        camera_right = vector.vec3(x=1).rotate(*-self.camera.rotation)
-        camera_up = vector.vec3(z=1).rotate(*-self.camera.rotation)
-        camera_forward = vector.vec3(y=1).rotate(*-self.camera.rotation)
+        camera_right = vector.vec3(x=1).rotate(1)
+        camera_up = vector.vec3(z=1).rotate(1)
+        camera_forward = vector.vec3(y=1).rotate(1)
         width, height = self.width(), self.height()
         x_offset = camera_right * ((click_x * 2 - width) / width)
         x_offset *= width / height  # aspect ratio
         y_offset = camera_up * ((click_y * 2 - height) / height)
-        fov_scalar = math.tan(math.radians(self.render_manager.field_of_view / 2))
+        fov_scalar = math.tan(math.radians(90 / 2))
         x_offset *= fov_scalar
         y_offset *= fov_scalar
-        ray_origin = self.camera.position
+        ray_origin = camera.freecam.position
         ray_direction = camera_forward + x_offset + y_offset
         return ray_origin, ray_direction
 
@@ -178,7 +178,6 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
                 x = self.width() / 2
                 y = self.height() / 2
             ray_origin, ray_direction = self.do_raycast(x, self.height() - y)
-            self.raycast.emit(ray_origin, ray_direction)
         super(MapViewport3D, self).mouseReleaseEvent(event)
 
     def wheelEvent(self, event):
