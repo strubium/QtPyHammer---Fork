@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from ..utilities import lang
+from ..ui import popup
 import subprocess
 
 class browser(QtWidgets.QDialog):
@@ -70,6 +71,10 @@ class browser(QtWidgets.QDialog):
         game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
         file_path = self.textbox.text()
 
+        if not file_path:
+            no_text_popup = popup.browser(parent=self, popuptext="Error", msgtext="File path cannot be empty")
+            no_text_popup.show()
+            return
         bsp_index = self.bsp_combo_box.currentIndex()
         vis_index = self.vis_combo_box.currentIndex()
         rad_index = self.rad_combo_box.currentIndex()
