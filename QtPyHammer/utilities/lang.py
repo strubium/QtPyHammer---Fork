@@ -1,4 +1,8 @@
-usingLanguage = "english"  # Default language
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+app = QtWidgets.QApplication.instance()
+
+usingLanguage = app.lang  # Default language
 
 def setLanguage(language):
     global usingLanguage
