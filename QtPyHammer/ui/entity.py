@@ -16,7 +16,8 @@ class browser(QtWidgets.QDialog):
         self.setGeometry(780, 220, 360, 640)
         app = QtWidgets.QApplication.instance()
         if len(app.fgd.entities) == 0:
-            raise RuntimeError("No entites to browse!")
+            error_popup = popup.browser(parent=self, popuptext="Error", msgtext="No entites to browse!")
+            error_popup.show()
 
         def is_point_or_solid(e):
             return e.class_type in ("PointClass", "SolidClass")
@@ -112,7 +113,7 @@ class browser(QtWidgets.QDialog):
         outputs = [*filter(lambda o: isinstance(o, valvefgd.parser.FgdEntityOutput), entity.properties)]
         # split properly in some version of valvefgd (prob 1.0.0 but it's broken?)
         if len(inputs) > 0 or len(outputs) > 0:  # OR ANY inputs recieved
-            logic_widget = QtWidgets.QWidget()  # <- make it's own class
+            logic_widget = QtWidgets.QWidget()  # <- make it its own class
             logic_widget.setLayout(QtWidgets.QVBoxLayout())
             logic_widget.layout().addWidget(QtWidgets.QLabel("Inputs"))
             logic_widget.layout().addWidget(QtWidgets.QLabel("Outputs"))

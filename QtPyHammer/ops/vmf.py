@@ -14,7 +14,7 @@ class VmfInterface:
         self.parent.viewport.render_manager.add_brushes(*self.brushes)
         # track changes with CRDT for Undo & Redo
         # add entities
-        self.hidden = self._vmf.hidden
+        #self.hidden = self._vmf.hidden TODO:vmf_tool does not support hidden objects
         # TODO: apply hide to render_manager
         # TODO: inform hide related UI if anything is hidden
 

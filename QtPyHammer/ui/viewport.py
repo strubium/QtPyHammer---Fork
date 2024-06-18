@@ -72,10 +72,10 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
         app = QtWidgets.QApplication.instance()
         shader_folder = os.path.join(app.folder, f"shaders/{self.shader_version}/")
         self.render_manager.initialise(shader_folder)
-        self.set_view_mode("flat")  # sets shaders & GL state
+        self.set_view_mode("textured")  # sets shaders & GL state
         self.timer.start()
 
-    # calling the slot by it's name creates a QVariant Error
+    # calling the slot by its name creates a QVariant Error
     # which for some reason does not trace correctly
     @QtCore.pyqtSlot(str, name="setViewMode")  # connected to UI
     def set_view_mode(self, view_mode):  # C++: void setViewMode(QString)
@@ -130,23 +130,23 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
 
     # Qt Signals
     def do_raycast(self, click_x, click_y):
-        camera_right = vector.vec3(x=1).rotate(*-self.camera.rotation)
-        camera_up = vector.vec3(z=1).rotate(*-self.camera.rotation)
-        camera_forward = vector.vec3(y=1).rotate(*-self.camera.rotation)
+        camera_right = vector.vec3(x=1).rotate(1)
+        camera_up = vector.vec3(z=1).rotate(1)
+        camera_forward = vector.vec3(y=1).rotate(1)
         width, height = self.width(), self.height()
         x_offset = camera_right * ((click_x * 2 - width) / width)
         x_offset *= width / height  # aspect ratio
         y_offset = camera_up * ((click_y * 2 - height) / height)
-        fov_scalar = math.tan(math.radians(self.render_manager.field_of_view / 2))
+        fov_scalar = math.tan(math.radians(90 / 2))
         x_offset *= fov_scalar
         y_offset *= fov_scalar
-        ray_origin = self.camera.position
+        ray_origin = camera.freecam.position
         ray_direction = camera_forward + x_offset + y_offset
         return ray_origin, ray_direction
 
     # Rebound Qt Methods
     def keyPressEvent(self, event):  # not registering arrow keys?
-        # BUG? auto repeat can "give the camera velocity" by jamming a key down virtually?
+        # BUG? auto-repeat can "give the camera velocity" by jamming a key down virtually?
         # ^ obsered once by @snake-biscuits
         self.keys.add(event.key())
 
@@ -178,7 +178,6 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
                 x = self.width() / 2
                 y = self.height() / 2
             ray_origin, ray_direction = self.do_raycast(x, self.height() - y)
-            self.raycast.emit(ray_origin, ray_direction)
         super(MapViewport3D, self).mouseReleaseEvent(event)
 
     def wheelEvent(self, event):

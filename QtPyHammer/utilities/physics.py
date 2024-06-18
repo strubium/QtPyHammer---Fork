@@ -26,6 +26,8 @@ class AxisAlignedBoundingBox:
     maxs: vector.vec3
 
     def __init__(self, mins: vector.vec3, maxs: vector.vec3):
+        self.max = None
+        self.min = None
         self.mins = vector.vec3(*mins)
         self.maxs = vector.vec3(*maxs)
 
