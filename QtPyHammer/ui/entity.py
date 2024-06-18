@@ -16,7 +16,8 @@ class browser(QtWidgets.QDialog):
         self.setGeometry(780, 220, 360, 640)
         app = QtWidgets.QApplication.instance()
         if len(app.fgd.entities) == 0:
-            raise RuntimeError("No entites to browse!")
+            error_popup = popup.browser(parent=self, popuptext="Error", msgtext="No entites to browse!")
+            error_popup.show()
 
         def is_point_or_solid(e):
             return e.class_type in ("PointClass", "SolidClass")
