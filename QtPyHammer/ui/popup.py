@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ..utilities import lang
 
+
 class browser(QtWidgets.QDialog):
     def __init__(self, parent, popuptext="Error", msgtext="Something's wrong, but we don't know what"):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)

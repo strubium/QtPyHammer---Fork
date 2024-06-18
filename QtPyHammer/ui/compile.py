@@ -7,6 +7,7 @@ import subprocess
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
+
         self.setWindowTitle("Run Map")
 
         # Add QLabel widgets
@@ -16,7 +17,7 @@ class browser(QtWidgets.QDialog):
         self.bsp_combo_box.addItem(lang.langNo())
         self.bsp_combo_box.addItem(lang.langNormal())
         self.bsp_combo_box.addItem("Only Entities")
-        self.bsp_combo_box.setCurrentIndex(self.bsp_combo_box.findText("Normal"))
+        self.bsp_combo_box.setCurrentIndex(self.bsp_combo_box.findText(lang.langNormal()))
 
         self.box2 = QtWidgets.QLabel("Run VIS:")
         self.vis_combo_box = QtWidgets.QComboBox()
@@ -53,7 +54,7 @@ class browser(QtWidgets.QDialog):
         cancel_button = QtWidgets.QPushButton("Cancel")
         cancel_button.clicked.connect(self.reject)
         bottom_row.addWidget(cancel_button)
-        ok_button = QtWidgets.QPushButton("Ok")
+        ok_button = QtWidgets.QPushButton(lang.langOk())
         ok_button.clicked.connect(self.on_ok_clicked)
         ok_button.setDefault(True)
         bottom_row.addWidget(ok_button)
@@ -64,11 +65,12 @@ class browser(QtWidgets.QDialog):
         self.adjustSize()
 
     def on_ok_clicked(self):
-        vbsp_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vbsp.exe'
-        vvis_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vvis.exe'
-        vrad_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\vrad.exe'
+        preferences = QtWidgets.QApplication.instance().game_config
+        vbsp_path = preferences.value("Hammer/BSP", r"C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/vbsp.exe")
+        vvis_path = preferences.value("Hammer/Vis", r"C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/vvis.exe")
+        vrad_path = preferences.value("Hammer/Light", r"C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/vrad.exe")
 
-        game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
+        game_path = preferences.value("General/GameDir", r"C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf")
         file_path = self.textbox.text()
 
         if not file_path:

@@ -113,7 +113,7 @@ class browser(QtWidgets.QDialog):
         outputs = [*filter(lambda o: isinstance(o, valvefgd.parser.FgdEntityOutput), entity.properties)]
         # split properly in some version of valvefgd (prob 1.0.0 but it's broken?)
         if len(inputs) > 0 or len(outputs) > 0:  # OR ANY inputs recieved
-            logic_widget = QtWidgets.QWidget()  # <- make it's own class
+            logic_widget = QtWidgets.QWidget()  # <- make it its own class
             logic_widget.setLayout(QtWidgets.QVBoxLayout())
             logic_widget.layout().addWidget(QtWidgets.QLabel("Inputs"))
             logic_widget.layout().addWidget(QtWidgets.QLabel("Outputs"))

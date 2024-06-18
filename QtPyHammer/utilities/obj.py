@@ -44,7 +44,7 @@ class Obj:
 
     @staticmethod
     def load_from_file(filename) -> Obj:  # noqa: C901
-        """Creates a Obj object from the definition in filename"""
+        """Creates an Obj object from the definition in filename"""
         vertex_data = {"v": [], "vt": [], "vn": []}
         faces = []
         current_object = None

@@ -1,4 +1,5 @@
-usingLanguage = "english"  # Default language
+
+usingLanguage = "English"  # Default language
 
 def setLanguage(language):
     global usingLanguage
