@@ -75,7 +75,7 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
         self.set_view_mode("textured")  # sets shaders & GL state
         self.timer.start()
 
-    # calling the slot by it's name creates a QVariant Error
+    # calling the slot by its name creates a QVariant Error
     # which for some reason does not trace correctly
     @QtCore.pyqtSlot(str, name="setViewMode")  # connected to UI
     def set_view_mode(self, view_mode):  # C++: void setViewMode(QString)
@@ -146,7 +146,7 @@ class MapViewport3D(QtWidgets.QOpenGLWidget):  # initialised in ui/tabs.py
 
     # Rebound Qt Methods
     def keyPressEvent(self, event):  # not registering arrow keys?
-        # BUG? auto repeat can "give the camera velocity" by jamming a key down virtually?
+        # BUG? auto-repeat can "give the camera velocity" by jamming a key down virtually?
         # ^ obsered once by @snake-biscuits
         self.keys.add(event.key())
 

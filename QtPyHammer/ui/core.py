@@ -4,18 +4,14 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 
-
 from .. import ops
 from ..ui import entity, popup, texture_browser, compile, properties
 from ..ui import workspace
 from ..utilities import lang
 
 
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
-
-
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
         self.setWindowIcon(QtGui.QIcon('HammerLogo.png'))
@@ -38,16 +34,28 @@ class MainWindow(QtWidgets.QMainWindow):
         self.main_menu = QtWidgets.QMenuBar()
         file_menu = self.main_menu.addMenu(lang.langFile())
         self.actions["File/New"] = file_menu.addAction("&New")
-        def new_file(): ops.new_file(self)
+
+        def new_file():
+            ops.new_file(self)
+
         self.actions["File/New"].triggered.connect(new_file)
         self.actions["File/Open"] = file_menu.addAction("&Open")
-        def open_files(): ops.open_files(self, self.map_browser)
+
+        def open_files():
+            ops.open_files(self, self.map_browser)
+
         self.actions["File/Open"].triggered.connect(open_files)
         self.actions["File/Save"] = file_menu.addAction("&Save")
-        def save_file(): ops.save_file(self, self.map_browser)
+
+        def save_file():
+            ops.save_file(self, self.map_browser)
+
         self.actions["File/Save"].triggered.connect(save_file)
         self.actions["File/Save As"] = file_menu.addAction("Save &As")
-        def save_file_as(): ops.save_file_as(self, self.map_browser)
+
+        def save_file_as():
+            ops.save_file_as(self, self.map_browser)
+
         self.actions["File/Save As"].triggered.connect(save_file_as)
         file_menu.addSeparator()
         # self.import_menu = file_menu.addMenu("Import")
@@ -263,25 +271,27 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.actions["Help/Offline"].triggered.connect(ui.
         help_menu.addSeparator()
         self.actions["Help/About QPH"] = help_menu.addAction("About QtPyHammer")
-        about_popup = popup.browser(parent=self, popuptext="About", msgtext="A Python alternative to Valve Hammer Editor 4.x, forked from QtPyHammer\n\nVersion: v0.0.5forked")
+        about_popup = popup.browser(parent=self, popuptext="About",
+                                    msgtext="A Python alternative to Valve Hammer Editor 4.x, forked from QtPyHammer\n\nVersion: v0.0.5forked")
         self.actions["Help/About QPH"].triggered.connect(about_popup.show)
         self.actions["Help/About Qt"] = help_menu.addAction("About Qt")
         self.actions["Help/About Qt"].triggered.connect(lambda: open_url(QtCore.QUrl(
-                            "https://github.com/spyder-ide/qtpy")))
+            "https://github.com/spyder-ide/qtpy")))
         # self.actions["Help/About Qt"].triggered.connect(ui. #QDialog
         self.actions["Help/License"] = help_menu.addAction("License")
         self.actions["Help/License"].triggered.connect(lambda: open_url(QtCore.QUrl(
-                            "https://github.com/strubium/QtPyHammer/blob/master/LICENSE")))
+            "https://github.com/strubium/QtPyHammer/blob/master/LICENSE")))
         # self.actions["Help/License"].triggered.connect(ui. #QDialog
         self.actions["Help/Contributors"] = help_menu.addAction("Contributors")
-        self.actions["Help/Contributors"].triggered.connect(lambda: open_url(QtCore.QUrl("https://github.com/QtPyHammer-devs/QtPyHammer/graphs/contributors")))
+        self.actions["Help/Contributors"].triggered.connect(
+            lambda: open_url(QtCore.QUrl("https://github.com/QtPyHammer-devs/QtPyHammer/graphs/contributors")))
         self.actions["Help/QPH Wiki"] = help_menu.addAction("QtPyHammer Wiki")
         self.actions["Help/QPH Wiki"].triggered.connect(lambda: open_url(QtCore.QUrl(
-                                "https://github.com/snake-biscuits/QtPyHammer/wiki")))
+            "https://github.com/snake-biscuits/QtPyHammer/wiki")))
         help_menu.addSeparator()
         self.actions["Help/VDC"] = help_menu.addAction("Valve Developer Community")
         self.actions["Help/VDC"].triggered.connect(lambda: open_url(QtCore.QUrl(
-                            "https://developer.valvesoftware.com/wiki/Main_Page")))
+            "https://developer.valvesoftware.com/wiki/Main_Page")))
 
         # attach all actions to hotkeys
         app = QtWidgets.QApplication.instance()
@@ -298,8 +308,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # TOOLBARS
         key_tools = QtWidgets.QToolBar("Tools")
-        key_tools.setMovable(False)
-        button_1 = QtWidgets.QToolButton() # need icons (.png)
+        key_tools.setMovable(True)
+        button_1 = QtWidgets.QToolButton()  # need icons (.png)
         button_1.setToolTip("Toggle 2D grid visibility")
         button_1.setIcon(QIcon("icons/2dHammerIcon"))
         button_1.setEnabled(False)
@@ -319,20 +329,20 @@ class MainWindow(QtWidgets.QMainWindow):
         button_4.setEnabled(False)
         key_tools.addWidget(button_4)
         key_tools.addSeparator()
-        button_5= QtWidgets.QToolButton()
+        button_5 = QtWidgets.QToolButton()
         button_5.setToolTip("Load Window State")
         button_5.setEnabled(False)
         key_tools.addWidget(button_5)
-        button_6= QtWidgets.QToolButton()
+        button_6 = QtWidgets.QToolButton()
         button_6.setToolTip("Save Window State")
         button_6.setEnabled(False)
         key_tools.addWidget(button_6)
         key_tools.addSeparator()
-        button_7= QtWidgets.QToolButton()
+        button_7 = QtWidgets.QToolButton()
         button_7.setToolTip("Undo")
         button_7.setEnabled(False)
         key_tools.addWidget(button_7)
-        button_8= QtWidgets.QToolButton()
+        button_8 = QtWidgets.QToolButton()
         button_8.setToolTip("Redo")
         button_8.setEnabled(False)
         key_tools.addWidget(button_8)
@@ -347,7 +357,7 @@ class MainWindow(QtWidgets.QMainWindow):
         right_toolbar.setFixedWidth(115)
         label_1 = QtWidgets.QLabel("Select:")
         right_toolbar.addWidget(label_1)
-        right_toolbar.setMovable(False)
+        right_toolbar.setMovable(True)
         button_1 = QtWidgets.QPushButton("Groups")
         button_1.setFixedSize(100, 25)
         button_1.setEnabled(False)

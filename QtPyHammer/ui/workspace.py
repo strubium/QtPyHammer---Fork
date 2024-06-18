@@ -58,7 +58,8 @@ class VmfTab(QtWidgets.QWidget):
             error_popup = popup.browser(parent=self, popuptext="Error", msgtext="Error when saving")
             error_popup.show()
             raise exc
-        print("Saved!")
+        saved_popup = popup.browser(parent=self, popuptext="Status", msgtext="Saved")
+        saved_popup.show()
         self.never_saved = False
 
     def close(self):

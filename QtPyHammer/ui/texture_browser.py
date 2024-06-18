@@ -16,7 +16,7 @@ class TextureBrowser(QtWidgets.QDialog):
         main_layout = QtWidgets.QVBoxLayout()
         self.setWindowTitle("Texture Browser")
         self.setGeometry(780, 220, 360, 640)
-        # now this has scroll bar but it doesnt have flow layout
+        # now this has scroll bar, but it doesn't have flow layout
         scroll = QtWidgets.QScrollArea()
         groupbox = QtWidgets.QGroupBox("Textures")
         flow_layout = FlowLayout(margin=10)
@@ -48,7 +48,7 @@ class TextureBrowser(QtWidgets.QDialog):
         main_layout.addWidget(QtWidgets.QLabel("Search Options"))
         # main_layout.addWidget(QtWidgets.QLabel("Max:"))
         # main_layout.addWidget(QtWidgets.QLineEdit(self).setPlaceholderText("400").resize(280,40))
-        
+
         # list of checkboxes?
         # colour-range (hue) slider (.vtf reflectivity value)
 
@@ -91,6 +91,7 @@ class TextureBrowser(QtWidgets.QDialog):
             search_popup.show()
             # TODO: doesnt filter yet
 
+
 class FlowLayout(QtWidgets.QLayout):
     """A ``QLayout`` that aranges its child widgets horizontally and
     vertically.
@@ -131,7 +132,8 @@ class FlowLayout(QtWidgets.QLayout):
             return self._item_list.pop(index)
         return None
 
-    def expandingDirections(self):
+    @staticmethod
+    def expandingDirections():
         return QtCore.Qt.Orientations(QtCore.Qt.Orientation(0))
 
     def hasHeightForWidth(self):
@@ -200,6 +202,7 @@ if __name__ == "__main__":
     def except_hook(cls, exception, traceback):
         """Get tracebacks for python called by Qt functions & classes"""
         sys.__excepthook__(cls, exception, traceback)
+
 
     sys.excepthook = except_hook
     app = QtWidgets.QApplication(sys.argv)

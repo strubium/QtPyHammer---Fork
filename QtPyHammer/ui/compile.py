@@ -6,7 +6,7 @@ import subprocess
 class browser(QtWidgets.QDialog):
     def __init__(self, parent):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
-        app = QtWidgets.QApplication.instance()
+
         self.setWindowTitle("Run Map")
 
         # Add QLabel widgets
@@ -16,7 +16,7 @@ class browser(QtWidgets.QDialog):
         self.bsp_combo_box.addItem(lang.langNo())
         self.bsp_combo_box.addItem(lang.langNormal())
         self.bsp_combo_box.addItem("Only Entities")
-        self.bsp_combo_box.setCurrentIndex(self.bsp_combo_box.findText(lang.langNormal))
+        self.bsp_combo_box.setCurrentIndex(self.bsp_combo_box.findText(lang.langNormal()))
 
         self.box2 = QtWidgets.QLabel("Run VIS:")
         self.vis_combo_box = QtWidgets.QComboBox()
@@ -64,11 +64,12 @@ class browser(QtWidgets.QDialog):
         self.adjustSize()
 
     def on_ok_clicked(self):
-        vbsp_path = app.game_config.value("Hammer/BSP", "Team Fortress 2/bin/vbsp.exe")
-        vvis_path = app.game_config.value("Hammer/Vis", "Team Fortress 2/bin/vvis.exe")
-        vrad_path = app.game_config.value("Hammer/Light", "Team Fortress 2/bin/vrad.exe")
+        preferences = QtWidgets.QApplication.instance().game_config
+        vbsp_path = preferences.value("Hammer/BSP", r"C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/vbsp.exe")
+        vvis_path = preferences.value("Hammer/Vis", r"C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/vvis.exe")
+        vrad_path = preferences.value("Hammer/Light", r"C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/vrad.exe")
 
-        game_path = r'C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf'
+        game_path = preferences.value("General/GameDir", r"C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf")
         file_path = self.textbox.text()
 
         bsp_index = self.bsp_combo_box.currentIndex()

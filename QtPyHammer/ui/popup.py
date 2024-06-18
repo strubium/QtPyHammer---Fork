@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ..utilities import lang
 
+
 class browser(QtWidgets.QDialog):
     def __init__(self, parent, popuptext, msgtext):
         super(browser, self).__init__(parent, QtCore.Qt.Tool)
