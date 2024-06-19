@@ -8,7 +8,7 @@ def setLanguage(language):
 def langFile(language=usingLanguage):
     match(language):
         case "english":
-            return "File"
+            return "&File"
         case "spanish":
             return "Archivo"
         case "russian":
@@ -19,7 +19,7 @@ def langFile(language=usingLanguage):
 def langEdit(language=usingLanguage):
     match(language):
         case "english":
-            return "Edit"
+            return "&Edit"
         case "spanish":
             return "Editar"
         case "russian":
@@ -30,7 +30,7 @@ def langEdit(language=usingLanguage):
 def langTools(language=usingLanguage):
     match(language):
         case "english":
-            return "Tools"
+            return "&Tools"
         case "spanish":
             return "Herramientas"
         case "russian":

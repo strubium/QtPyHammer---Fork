@@ -14,7 +14,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(QtWidgets.QMainWindow, self).__init__(parent)
         global current_dir
-        self.setWindowIcon(QtGui.QIcon('HammerLogo.png'))
         self.setWindowTitle("QtPyHammer - Fork")
         self.setMinimumSize(640, 480)
         self.setTabPosition(QtCore.Qt.TopDockWidgetArea, QtWidgets.QTabWidget.North)
@@ -387,10 +386,9 @@ class MainWindow(QtWidgets.QMainWindow):
         short_filename = os.path.basename(filename)
         if extension == ".vmf":
             tab = workspace.VmfTab(filename, new=False, parent=self)
-        elif extension == ".qph":
-            raise NotImplementedError("No .qph viewport tabs yet")
-            # tab = workspace.QphTab(filename, new=False, parent=self)
+            self.tabs.addTab(tab, short_filename)
+            self.tabs.setCurrentIndex(self.tabs.count() - 1)
         else:
-            raise RuntimeError(f"{filename} is not a .vmf file")
-        self.tabs.addTab(tab, short_filename)
-        self.tabs.setCurrentIndex(self.tabs.count() - 1)
+            not_vmf_popup = popup.browser(parent=self, popuptext="Error", msgtext=f"{filename} is not a .vmf file")
+            not_vmf_popup.show()
+            pass
