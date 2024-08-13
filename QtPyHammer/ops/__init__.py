@@ -7,7 +7,6 @@ from ..ui import workspace
 
 
 filename_filters = ["Valve Map Format (*.vmf)",
-                    "QtPyHammer file (*.qph)",
                     "All files (*.*)"]
 
 # TODO: write a common function for detecting if files / folders exist

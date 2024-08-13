@@ -2,7 +2,7 @@ import os
 import sys
 
 import valvefgd
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from QtPyHammer.ui.core import MainWindow
 from QtPyHammer.ui.user_preferences.theme import load_theme
@@ -22,6 +22,7 @@ class QtPyHammerApp(QtWidgets.QApplication):
     # -- QtWidgets.QApplication.instance()
     def __init__(self, argv):
         super(QtWidgets.QApplication, self).__init__(argv)
+        self.setWindowIcon(QtGui.QIcon('HammerLogo.png'))
         self.folder = os.path.dirname(__file__)
         self.preferences = load_ini("configs/preferences.ini")
         game = self.preferences.value("Game", "Team Fortress 2")
